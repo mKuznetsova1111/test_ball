@@ -22,6 +22,7 @@ const builder = new Builder({
       saveData(state, action) {
         const {payload: {data}} = action;
         state.data = data;
+        // dispatch(content.thunks.load()) 
       },
       saveError(){
 
@@ -31,7 +32,6 @@ const builder = new Builder({
       },
       func: async function () {
         data = await get(`https://jsonplaceholder.typicode.com/todos`);
-        console.log("sdfhsdjf")
         return data;
       }
     })
