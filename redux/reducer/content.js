@@ -18,20 +18,22 @@ const builder = new Builder({
   })
     .createExtraReducer({
       thunkName: "load",
+      // extraName: "loadGame"
       saveData(state, action) {
         const {payload: {data}} = action;
         state.data = data;
+      },
+      saveError(){
+
+      },
+      onSubmit(){
+
       },
       func: async function () {
         data = await get(`https://jsonplaceholder.typicode.com/todos`);
         console.log("sdfhsdjf")
         return data;
       }
-    })
-    // .createSelector("content", state => ({...state.content, ...data}))
-    .addMatcher(() => true, (state, {payload = {}}) => {
-      if (payload.hasOwnProperty("data"))
-        state.data = payload.data;
     })
 ;
 
@@ -42,3 +44,5 @@ const content = builder.export();
 export default content;
 
 export const {useContent} = content.selectors;
+
+// dispatch(content.thunks.loadGame()) 
