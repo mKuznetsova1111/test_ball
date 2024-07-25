@@ -21,8 +21,9 @@ const builder = new Builder({
       // extraName: "loadGame"
       saveData(state, action) {
         const {payload: {data}} = action;
+        console.log("data")
         state.data = data;
-        // dispatch(content.thunks.load()) 
+        console.log(data, action)
       },
       saveError(){
 
@@ -44,5 +45,3 @@ const content = builder.export();
 export default content;
 
 export const {useContent} = content.selectors;
-
-// dispatch(content.thunks.loadGame()) 

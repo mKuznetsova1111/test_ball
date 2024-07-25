@@ -8,5 +8,4 @@ export function useLoadContent() {
   useEffect(() => {
     dispatch(content.thunks.load());
   }, []);
-
 }
