@@ -1,0 +1,67 @@
+.content-view {
+  position: relative;
+  flex-direction: column;
+  height: auto;
+  width: auto;
+  overflow: hidden;
+
+  &__content-video_hidden{
+    display: none;
+  }
+
+  &_h-centered{
+    display: flex;
+    justify-content: center;
+  }
+
+  &_v-centered{
+    display: flex;
+    align-items: center;
+  }
+
+  &__overlay{
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__overlay-icon{
+    width: 50px;
+    height: 50px;
+  }
+
+  &__progress{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
+
+  &__line{
+    width: 100%;
+  }
+
+  &__playable-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__content-image{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

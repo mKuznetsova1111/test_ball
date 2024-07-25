@@ -1,0 +1,7 @@
+.main {
+  @mixin mod($mod) {
+    @include modifier("main", $mod){
+      @content;
+    }
+  }
+}

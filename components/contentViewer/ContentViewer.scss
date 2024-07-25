@@ -1,0 +1,16 @@
+.content-viewer {
+  user-select: none;
+
+  &__content-video_hidden{
+    display: none;
+  }
+
+  &__controls{
+    transition: opacity .5s;
+  }
+
+  &__controls_hidden{
+    opacity: 0;
+    pointer-events: none;
+  }
+}
