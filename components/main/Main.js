@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import * as PropTypes from "prop-types";
 import classNames from "classnames";
 import {useContent} from "../../redux/reducer/content";
@@ -22,16 +22,32 @@ const INPUTS = [
 export default function Main({className, children}) {
   const {data} = useContent();
   const {profile} = useUser();
+  const [isAuth, setIsAuth] = useState(false);
 
   console.log(data);
 
+  function sendInfo({username, password}){
+    fetch('https://dummyjson.com/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username, //emilys
+        password: password, //emilyspass
+      })
+    })
+    .then(res => res.json())
+    .then(() => setIsAuth(true));
+  }
+
   return (
     <div className={classNames("main", className)}>
-      {/*<Form className={"main__form"} onSubmit={data => callbacks[form.onSubmitCallback]?.(data)}/>*/}
-      <Form className={"main__form"}>
+      { !isAuth ? <Form className={"main__form"} onSubmit={(data) => {
+        console.log(data)
+        sendInfo({username: data.username, password: data.password})
+      }}>
         {inputsContent()}
         <Button text={"Send"} type={"submit"}/>
-      </Form>
+      </Form> : null }
     </div>
   );
 
