@@ -99,10 +99,10 @@ export function send({apiMethod, ...params}) {
  */
 function onSuccess(response) {
   const {data} = response;
-  if (ApiError.isError(data)) {
+  if (response.status !== 200) {
     throw ApiError.fromApiResponse(data);
   }
-  return data.data;
+  return data;
 }
 
 function onFail(error) {

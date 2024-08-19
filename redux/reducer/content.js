@@ -2,7 +2,7 @@ import Builder from "../../utils/redux/builder";
 import {get, post} from "../../utils/api/api";
 import axios from "axios";
 
-// let data;
+let data;
 
 const builder = new Builder({
     name: "content",
@@ -20,13 +20,9 @@ const builder = new Builder({
       thunkName: "load",
       // extraName: "loadGame"
       saveData(state, action) {
-        const {payload: {data}} = action;
-        console.log("data")
-        state.data = data;
-        console.log(data, action)
+        state.data = action.payload;
       },
       saveError(){
-
       },
       onSubmit(){
 
