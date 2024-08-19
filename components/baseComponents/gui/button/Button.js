@@ -22,6 +22,7 @@ const Button = React.forwardRef(
                     up,
                     down,
                     hover,
+                    text,
                     ...rest
                   }, ref) {
     const [pressed, setPressed] = useState(false);
@@ -64,6 +65,7 @@ const Button = React.forwardRef(
         onTouchCancel={pressedOff}
       >
         {children}
+        {text && <div className={"button__text"}>{text}</div>}
       </Tag>)
   }
 );
