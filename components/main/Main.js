@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import * as PropTypes from "prop-types";
 import classNames from "classnames";
 import {useContent} from "../../redux/reducer/content";
@@ -6,6 +6,7 @@ import {useUser} from "../../redux/reducer/user";
 import Form from "../baseComponents/gui/form/Form";
 import Button from "../baseComponents/gui/button/Button";
 import Input from "../baseComponents/gui/input/Input";
+import {setToken} from "../../redux/reducer/content";
 
 
 const INPUTS = [
@@ -21,10 +22,15 @@ const INPUTS = [
 
 export default function Main({className, children}) {
   const {data} = useContent();
-  const {profile} = useUser();
   const [isAuth, setIsAuth] = useState(false);
 
-  console.log(data);
+  // console.log(data);
+
+  useEffect(() => {
+    if (!localStorage) {return};
+    const token = localStorage.getItem('TOKEN_KEY');
+    setIsAuth((token !== null && token !== undefined) ? true : false)
+  }, [])
 
   function sendInfo({username, password}){
     fetch('https://dummyjson.com/auth/login', {
@@ -36,13 +42,18 @@ export default function Main({className, children}) {
       })
     })
     .then(res => res.json())
-    .then(() => setIsAuth(true));
+    .then((e) => {
+      if (e.token){
+        localStorage.setItem("TOKEN_KEY", e.token);
+        setIsAuth(true);
+      }
+    });
   }
+
 
   return (
     <div className={classNames("main", className)}>
       { !isAuth ? <Form className={"main__form"} onSubmit={(data) => {
-        console.log(data)
         sendInfo({username: data.username, password: data.password})
       }}>
         {inputsContent()}
