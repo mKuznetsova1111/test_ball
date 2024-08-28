@@ -20,20 +20,21 @@ const INPUTS = [
   }
 ]
 
-const TEST = [
-  {userId: 1, id: 1, title: 'delectus aut autem', completed: false},
-  {userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed: false},
-  {userId: 1, id: 3, title: 'fugiat veniam minus', completed: false},
-  {userId: 1, id: 4, title: 'et porro tempora', completed: true}
-]
+// const TEST = [
+//   {userId: 1, id: 1, title: '1', completed: false}, 
+//   {userId: 1, id: 2, title: '2', completed: false}, 
+//   {userId: 1, id: 3, title: '3', completed: false}, 
+//   {userId: 1, id: 4, title: '4', completed: true}, 
+//   {userId: 1, id: 4, title: '5', completed: true},
+//   {userId: 1, id: 4, title: '6', completed: true}, 
+//   {userId: 1, id: 4, title: '7', completed: true}, 
+// ]
 
 export default function Main({className, children}) {
   const {data} = useContent();
   const [isAuth, setIsAuth] = useState(false);
-  const [_data, setData] = useState(TEST);
+  const [_data, setData] = useState(data);
   const [activeItem, setActiveItem] = useState(null);
-
-  // console.log(data);
 
   useEffect(() => {
     if (!localStorage) {return};
@@ -59,18 +60,6 @@ export default function Main({className, children}) {
     });
   }
 
-  // useEffect(() => {
-  //   const item = _data[activeIndex];
-  //   let newData = _data;
-  //   delete newData[activeIndex];
-  //   setData(newData);
-  // }, [activeIndex])
-
-
-  // useEffect(() => {
-  //   console.log(_data)
-  // }, [_data])
-
   function random(n) {
     return Math.floor(Math.random() * Math.floor(n));
   }
@@ -86,20 +75,18 @@ export default function Main({className, children}) {
     return arr;
   }
 
-  function getFirstItem(){
-    const newData = shuffle(_data);
+  function onClick(){
+    let newData = null;
+    let testData = [..._data];
+    if (testData.length < 1){
+      setData(data);
+      testData = [...data];
+    }
+    newData = shuffle(testData);
+    let item = newData.shift();
     setData(newData);
-    // console.log(TEST, newData)
+    setActiveItem(item);
   }
-
-  // useEffect(() => {
-  //   _data.shift();
-  // }, [_data])
-
-  // useEffect(() => {
-  //  console.log(_data)
-  // }, [_data])
-
 
   return (
     <div className={classNames("main", className)}>
@@ -109,34 +96,7 @@ export default function Main({className, children}) {
         {inputsContent()}
         <Button text={"Send"} type={"submit"}/>
       </Form> : <div className={"main__block"}>
-        <div className={"main__scene"} onClick={() => {
-          // let newData = null;
-          // console.log(_data, _data.length)
-          // if (_data.length < 1){
-          //   console.log("wcm?")
-          //   setData(TEST);
-          //   newData = TEST;
-          //   newData = shuffle(newData);
-          // }
-          // newData = shuffle(_data);
-          // let item = newData.shift();
-          // setActiveItem(item);
-
-          let newData = null;
-          let testData = _data;
-          console.log(_data, _data.length)
-          if (testData.length < 1){
-            console.log("0")
-            setData(TEST);
-            testData = TEST;
-            console.log("1 ", _data)
-          }
-          console.log("2 ", _data)
-          newData = shuffle(testData);
-          let item = newData.shift();
-          setActiveItem(item);
-
-        }}>
+        <div className={"main__scene"} onClick={() => onClick()}>
         </div>
         { activeItem && <div className={"main__text"}>
           <span>{activeItem.title}</span>
