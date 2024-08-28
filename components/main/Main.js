@@ -126,7 +126,7 @@ export default function Main({className, children}) {
           let testData = _data;
           console.log(_data, _data.length)
           if (testData.length < 1){
-            console.log("wcm?")
+            console.log("0")
             setData(TEST);
             testData = TEST;
             console.log("1 ", _data)
