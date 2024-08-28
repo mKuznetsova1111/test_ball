@@ -29,4 +29,21 @@
     margin: 0 auto 15px;
     box-sizing: border-box;
   }
+
+  &__block{
+    width: 400px;
+  }
+
+  &__scene{
+    width: 100%;
+    height: 400px;
+    margin: 0 auto 30px;
+    background-color: gray;
+  }
+
+  &__text{
+    width: 100%;
+    font-size: 22px;
+    text-align: center;
+  }
 }

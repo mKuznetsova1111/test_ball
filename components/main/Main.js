@@ -20,9 +20,18 @@ const INPUTS = [
   }
 ]
 
+const TEST = [
+  {userId: 1, id: 1, title: 'delectus aut autem', completed: false},
+  {userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed: false},
+  {userId: 1, id: 3, title: 'fugiat veniam minus', completed: false},
+  {userId: 1, id: 4, title: 'et porro tempora', completed: true}
+]
+
 export default function Main({className, children}) {
   const {data} = useContent();
   const [isAuth, setIsAuth] = useState(false);
+  const [_data, setData] = useState(TEST);
+  const [activeItem, setActiveItem] = useState(null);
 
   // console.log(data);
 
@@ -50,6 +59,47 @@ export default function Main({className, children}) {
     });
   }
 
+  // useEffect(() => {
+  //   const item = _data[activeIndex];
+  //   let newData = _data;
+  //   delete newData[activeIndex];
+  //   setData(newData);
+  // }, [activeIndex])
+
+
+  // useEffect(() => {
+  //   console.log(_data)
+  // }, [_data])
+
+  function random(n) {
+    return Math.floor(Math.random() * Math.floor(n));
+  }
+
+  function shuffle(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let j = random(arr.length);
+      let k = random(arr.length);
+      let t = arr[j];
+      arr[j] = arr[k];
+      arr[k] = t;
+    }
+    return arr;
+  }
+
+  function getFirstItem(){
+    const newData = shuffle(_data);
+    setData(newData);
+    // console.log(TEST, newData)
+  }
+
+  // useEffect(() => {
+  //   _data.shift();
+  // }, [_data])
+
+  // useEffect(() => {
+  //  console.log(_data)
+  // }, [_data])
+
 
   return (
     <div className={classNames("main", className)}>
@@ -58,7 +108,40 @@ export default function Main({className, children}) {
       }}>
         {inputsContent()}
         <Button text={"Send"} type={"submit"}/>
-      </Form> : null }
+      </Form> : <div className={"main__block"}>
+        <div className={"main__scene"} onClick={() => {
+          // let newData = null;
+          // console.log(_data, _data.length)
+          // if (_data.length < 1){
+          //   console.log("wcm?")
+          //   setData(TEST);
+          //   newData = TEST;
+          //   newData = shuffle(newData);
+          // }
+          // newData = shuffle(_data);
+          // let item = newData.shift();
+          // setActiveItem(item);
+
+          let newData = null;
+          let testData = _data;
+          console.log(_data, _data.length)
+          if (testData.length < 1){
+            console.log("wcm?")
+            setData(TEST);
+            testData = TEST;
+            console.log("1 ", _data)
+          }
+          console.log("2 ", _data)
+          newData = shuffle(testData);
+          let item = newData.shift();
+          setActiveItem(item);
+
+        }}>
+        </div>
+        { activeItem && <div className={"main__text"}>
+          <span>{activeItem.title}</span>
+        </div> }
+      </div> }
     </div>
   );
 
