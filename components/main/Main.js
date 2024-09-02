@@ -7,28 +7,23 @@ import Form from "../baseComponents/gui/form/Form";
 import Button from "../baseComponents/gui/button/Button";
 import Input from "../baseComponents/gui/input/Input";
 import {setToken} from "../../redux/reducer/content";
+import shuffle from "../../utils/Shuffle";
+import {required} from "../../constants/form";
 
 
 const INPUTS = [
   {
     name: "username",
     placeholder: "Username",
+    rules: required(),
+    autoComplete: "username"
   },
   {
     name: "password",
     placeholder: "Password",
+    rules: required("password")
   }
 ]
-
-// const TEST = [
-//   {userId: 1, id: 1, title: '1', completed: false}, 
-//   {userId: 1, id: 2, title: '2', completed: false}, 
-//   {userId: 1, id: 3, title: '3', completed: false}, 
-//   {userId: 1, id: 4, title: '4', completed: true}, 
-//   {userId: 1, id: 4, title: '5', completed: true},
-//   {userId: 1, id: 4, title: '6', completed: true}, 
-//   {userId: 1, id: 4, title: '7', completed: true}, 
-// ]
 
 export default function Main({className, children}) {
   const {data} = useContent();
@@ -58,21 +53,6 @@ export default function Main({className, children}) {
         setIsAuth(true);
       }
     });
-  }
-
-  function random(n) {
-    return Math.floor(Math.random() * Math.floor(n));
-  }
-
-  function shuffle(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      let j = random(arr.length);
-      let k = random(arr.length);
-      let t = arr[j];
-      arr[j] = arr[k];
-      arr[k] = t;
-    }
-    return arr;
   }
 
   function onClick(){
@@ -111,7 +91,7 @@ export default function Main({className, children}) {
         <Input
           key={"mainInput-" + index}
           {...item}
-          className={"main__input input"}
+          comp={"main__input input"}
         />
       );
     });
