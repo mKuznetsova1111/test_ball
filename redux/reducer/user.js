@@ -25,11 +25,6 @@ const builder = new Builder({
       localStorage.setItem("TOKEN_KEY", action.payload?.token);
     }
   })
-  .addExtraReducer({
-    ["content/load/pending"](state, action) {
-      state.requestStatus = action.meta?.requestStatus ? action.meta?.requestStatus : null;
-    }
-  })
   .addMatcher(() => true, (state, {payload = {}}) => {
     if (payload.hasOwnProperty("profile"))
       state.profile = payload.profile;

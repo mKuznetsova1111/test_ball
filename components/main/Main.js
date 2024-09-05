@@ -33,7 +33,6 @@ export default function Main({className, children}) {
   const isAuth = !!token;
   const [_data, setData] = useState(data);
   const [activeItem, setActiveItem] = useState(null);
-  const {request} = useRequestData("main/send");
 
   useEffect(() => {
     if (!localStorage) {

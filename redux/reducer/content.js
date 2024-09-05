@@ -8,12 +8,6 @@ const builder = new Builder({
     name: "content",
     initialState: {
       data: []
-    },
-    reducers: {
-      setData(state, {payload: {label, data: _data}}) {
-        state.data = _data;
-        data = _data;
-      }
     }
   })
     .createExtraReducer({
@@ -30,6 +24,11 @@ const builder = new Builder({
       func: async function () {
         data = await get(`https://jsonplaceholder.typicode.com/todos`);
         return data;
+      }
+    })
+    .addExtraReducer({
+      ["content/load/fulfilled"](state, action) {
+        state.data = action.payload;
       }
     })
 ;
