@@ -8,9 +8,28 @@ import Builder from "../../utils/redux/builder";
 const builder = new Builder({
   name: "user",
   initialState: {
-    profile: null
+    profile: null,
+    token: null,
+    requestStatus: null
+  },
+  reducers: {
+    saveToken(state, {payload: token}) {
+      state.token = token;
+      localStorage.setItem("TOKEN_KEY", token);
+    }
   }
 })
+  .addExtraReducer({
+    ["requests/main/send/fulfilled"](state, action) {
+      state.token = action.payload?.token;
+      localStorage.setItem("TOKEN_KEY", action.payload?.token);
+    }
+  })
+  .addExtraReducer({
+    ["content/load/pending"](state, action) {
+      state.requestStatus = action.meta?.requestStatus ? action.meta?.requestStatus : null;
+    }
+  })
   .addMatcher(() => true, (state, {payload = {}}) => {
     if (payload.hasOwnProperty("profile"))
       state.profile = payload.profile;

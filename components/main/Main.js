@@ -2,14 +2,15 @@ import React, {useState, useEffect} from "react";
 import * as PropTypes from "prop-types";
 import classNames from "classnames";
 import {useContent} from "../../redux/reducer/content";
-import {useUser} from "../../redux/reducer/user";
 import Form from "../baseComponents/gui/form/Form";
 import Button from "../baseComponents/gui/button/Button";
 import Input from "../baseComponents/gui/input/Input";
 import {setToken} from "../../redux/reducer/content";
 import shuffle from "../../utils/Shuffle";
 import {required} from "../../constants/form";
-
+import requests, {useRequestData} from "../../redux/reducer/requests";
+import {useDispatch} from "react-redux";
+import user, {useUser} from "../../redux/reducer/user";
 
 const INPUTS = [
   {
@@ -27,38 +28,33 @@ const INPUTS = [
 
 export default function Main({className, children}) {
   const {data} = useContent();
-  const [isAuth, setIsAuth] = useState(false);
+  const dispatch = useDispatch();
+  const {token, requestStatus} = useUser();
+  const isAuth = !!token;
   const [_data, setData] = useState(data);
   const [activeItem, setActiveItem] = useState(null);
+  const {request} = useRequestData("main/send");
 
   useEffect(() => {
-    if (!localStorage) {return};
+    if (!localStorage) {
+      return
+    }
     const token = localStorage.getItem('TOKEN_KEY');
-    setIsAuth((token !== null && token !== undefined) ? true : false)
+    if(token)
+      dispatch(user.actions.saveToken(token));
   }, [])
 
-  function sendInfo({username, password}){
-    fetch('https://dummyjson.com/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username, //emilys
-        password: password, //emilyspass
-      })
-    })
-    .then(res => res.json())
-    .then((e) => {
-      if (e.token){
-        localStorage.setItem("TOKEN_KEY", e.token);
-        setIsAuth(true);
-      }
-    });
+  function sendInfo(data) {
+    dispatch(requests.thunks.mainSend(data));
+    dispatch(requests.thunks.mainLoad());
+    //     username: emilys
+    //     password: emilyspass
   }
 
-  function onClick(){
+  function onClick() {
     let newData = null;
     let testData = [..._data];
-    if (testData.length < 1){
+    if (testData.length < 1) {
       setData(data);
       testData = [...data];
     }
@@ -70,18 +66,18 @@ export default function Main({className, children}) {
 
   return (
     <div className={classNames("main", className)}>
-      { !isAuth ? <Form className={"main__form"} onSubmit={(data) => {
-        sendInfo({username: data.username, password: data.password})
+      {!isAuth ? <Form className={"main__form"} onSubmit={(item) => {
+        sendInfo({username: item.username, password: item.password})
       }}>
         {inputsContent()}
         <Button text={"Send"} type={"submit"}/>
       </Form> : <div className={"main__block"}>
         <div className={"main__scene"} onClick={() => onClick()}>
         </div>
-        { activeItem && <div className={"main__text"}>
+        {activeItem && <div className={"main__text"}>
           <span>{activeItem.title}</span>
-        </div> }
-      </div> }
+        </div>}
+      </div>}
     </div>
   );
 

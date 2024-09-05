@@ -31,6 +31,19 @@ export function logout() {
     .then(saveAuth)
 }
 
+export function customAuth(data) {
+  return fetch('https://dummyjson.com/auth/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(res => {
+    return res.json()
+  })
+}
+export function customDataLoad() {
+  return get("/main/load")
+}
+
 function saveAuth(data) {
   _storage.save(data?.profile);
 

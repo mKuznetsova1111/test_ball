@@ -1,5 +1,5 @@
 import RequestsBuilder from "../../utils/redux/RequestsBuilder";
-import {login, logout, profile, signup, update} from "../../api/user";
+import {customDataLoad, customAuth, login, logout, profile, signup, update} from "../../api/user";
 
 
 const builder = new RequestsBuilder({
@@ -50,6 +50,18 @@ const builder = new RequestsBuilder({
     checkLocal: true,
     func: logout
   })
+  .addRequest({
+    requestName: "main/send",
+    extraName: "mainSend",
+    checkLocal: true,
+    func: customAuth
+  })
+  .addRequest({
+    requestName: "main/load",
+    extraName: "mainLoad",
+    checkLocal: true,
+    func: customDataLoad
+  });
 
 
 builder.create();
