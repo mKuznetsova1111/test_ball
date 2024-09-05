@@ -5,10 +5,9 @@ import {useContent} from "../../redux/reducer/content";
 import Form from "../baseComponents/gui/form/Form";
 import Button from "../baseComponents/gui/button/Button";
 import Input from "../baseComponents/gui/input/Input";
-import {setToken} from "../../redux/reducer/content";
 import shuffle from "../../utils/Shuffle";
 import {required} from "../../constants/form";
-import requests, {useRequestData} from "../../redux/reducer/requests";
+import requests from "../../redux/reducer/requests";
 import {useDispatch} from "react-redux";
 import user, {useUser} from "../../redux/reducer/user";
 
@@ -45,7 +44,6 @@ export default function Main({className, children}) {
 
   function sendInfo(data) {
     dispatch(requests.thunks.mainSend(data));
-    dispatch(requests.thunks.mainLoad());
     //     username: emilys
     //     password: emilyspass
   }

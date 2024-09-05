@@ -41,7 +41,7 @@ export function customAuth(data) {
   })
 }
 export function customDataLoad() {
-  return get("/main/load")
+  return get(`https://jsonplaceholder.typicode.com/todos`);
 }
 
 function saveAuth(data) {

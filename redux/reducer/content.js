@@ -10,24 +10,9 @@ const builder = new Builder({
       data: []
     }
   })
-    .createExtraReducer({
-      thunkName: "load",
-      // extraName: "loadGame"
-      saveData(state, action) {
-        state.data = action.payload;
-      },
-      saveError(){
-      },
-      onSubmit(){
-
-      },
-      func: async function () {
-        data = await get(`https://jsonplaceholder.typicode.com/todos`);
-        return data;
-      }
-    })
     .addExtraReducer({
-      ["content/load/fulfilled"](state, action) {
+      ["requests/main/load/fulfilled"](state, action) {
+        console.log(action)
         state.data = action.payload;
       }
     })
