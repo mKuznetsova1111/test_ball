@@ -12,7 +12,6 @@ const builder = new Builder({
   })
     .addExtraReducer({
       ["requests/main/load/fulfilled"](state, action) {
-        console.log(action)
         state.data = action.payload;
       }
     })

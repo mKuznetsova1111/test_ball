@@ -39,6 +39,11 @@
     height: 400px;
     margin: 0 auto 30px;
     background-color: gray;
+
+    canvas{
+      width: 100%!important;
+      height: 100%!important;
+    }
   }
 
   &__text{
