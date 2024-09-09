@@ -31,6 +31,8 @@
     "html-react-parser": "^1.4.0",
     "md5": "^2.3.0",
     "next": "^12.2.3",
+    "gsap": "^3.12.5",
+    "@gsap/react": "^2.1.1",
     "normalize.css": "latest",
     "npm-check-updates": "^7.1.1",
     "pixi.js": "^7.4.2",
