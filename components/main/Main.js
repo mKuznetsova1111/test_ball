@@ -35,6 +35,8 @@ export default function Main({className, children}) {
   const isAuth = !!token;
   const [_data, setData] = useState(data);
   const [activeItem, setActiveItem] = useState(null);
+  const [isBallJump, setIsBallJump] = useState(false);
+  const [_ball, setBall] = useState(null);
   const sceneRef = useRef();
 
   useEffect(() => {
@@ -53,6 +55,9 @@ export default function Main({className, children}) {
   }
 
   function onClick() {
+  }
+
+  function newItem(){
     let newData = null;
     let testData = [..._data];
     if (testData.length < 1) {
@@ -63,6 +68,7 @@ export default function Main({className, children}) {
     let item = newData.shift();
     setData(newData);
     setActiveItem(item);
+    setIsBallJump(false)
   }
 
   useEffect(() => {
@@ -75,13 +81,15 @@ export default function Main({className, children}) {
     const ball = new Ball;
     app.stage.addChild(grass);
     app.stage.addChild(ball);
-    console.log(height, grass.getHeight(), height - grass.getHeight())
-    ball.init({x: width / 2, y: height - grass.getHeight()})
+    ball.init({x: width / 2, y: height * 0.95})
     grass.init({x: 0, y: height, width: width})
-    // ball.jump()
-    console.log(ball.getWidth())
-    console.log(grass.getHeight())
+    setBall(ball);
   }, [sceneRef.current])
+
+  useEffect(() => {
+    if (isBallJump)
+      _ball?.jump(newItem);
+  }, [isBallJump])
 
   return (
     <div className={classNames("main", className)}>
@@ -91,11 +99,11 @@ export default function Main({className, children}) {
         {inputsContent()}
         <Button text={"Send"} type={"submit"}/>
       </Form> : <div className={"main__block"}>
-        <div className={"main__scene"} onClick={() => onClick()} ref={sceneRef}>
+        <div className={"main__scene"} onClick={() => setIsBallJump(true)} ref={sceneRef}>
         </div>
-        {activeItem && <div className={"main__text"}>
-          <span>{activeItem.title}</span>
-        </div>}
+        <div className={"main__text"}>
+          { activeItem && <span>{activeItem.title}</span> }
+        </div>
       </div>}
     </div>
   );
