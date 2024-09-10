@@ -9,8 +9,6 @@ export default class Ball extends PIXI.Container {
   name = "ball";
   posX = 0;
   posY = 0;
-  width = 60;
-  height = 60;
   texture = PIXI.Texture.from("/images/ball3.png");
 
   constructor() {
@@ -31,9 +29,9 @@ export default class Ball extends PIXI.Container {
     this.position.y = this.posY;
   }
 
-  getWidth(){
-    return this.sprite.width;
-  }
+  // getWidth(){
+  //   return this.sprite.width;
+  // }
 
   jump(onComplite) {  
     const timeline = gsap.timeline();  

@@ -30,11 +30,11 @@ export default class Grass extends PIXI.Container {
     this.position.y = this.posY;
   }
 
-  getTexture(){
-    return this.sprite.texture.baseTexture;
-  }
+  // getTexture(){
+  //   return this.sprite.texture.baseTexture;
+  // }
 
-  getHeight(){
-    return this.sprite.height;
-  }
+  // getHeight(){
+  //   return this.sprite.height;
+  // }
 }
