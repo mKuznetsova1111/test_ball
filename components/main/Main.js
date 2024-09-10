@@ -73,9 +73,7 @@ export default function Main({className, children}) {
 
   useEffect(() => {
     if(!sceneRef.current) return;
-    // const height = sceneRef?.current?.clientHeight;
     const width = sceneRef?.current?.clientWidth;
-    console.log(width)
     const app = new PIXI.Application({ width: width, height: width, backgroundColor: `b7efff` })
     sceneRef?.current?.appendChild(app.view);
     const grass = new Grass;

@@ -84,19 +84,6 @@ export default class Ball extends PIXI.Container {
       .then(() => {
         onComplite();
       })
-      // .to(this.shadow.scale, {
-      //   x: 1.5,
-      //   y: 0.6,
-      //   ease: "none",
-      //   duration: duration * 0.25
-      // }, duration * 1.7)
-      // .to(this.shadow.scale, {
-      //   x: 0.8,
-      //   y: 0.8,
-      //   ease: "none",
-      //   duration: duration * 0.25
-      // }, duration * 1.9)
-
 
     timelineShadow
       .to(this.shadow.scale, {
