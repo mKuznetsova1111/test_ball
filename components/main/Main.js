@@ -83,7 +83,7 @@ export default function Main({className, children}) {
     app.stage.addChild(grass);
     app.stage.addChild(ball);
     grass.init({x: 0, y: width, width: width, height: width * 0.135})
-    ball.init({x: width / 2, y: width - grass.getHeight() * 0.25, width: width * 0.2, height: width * 0.2});
+    ball.init({x: width / 2, y: width - grass.getHeight() * 0.4, width: width * 0.2, height: width * 0.2});
     setBall(ball);
   }, [sceneRef.current])
 
