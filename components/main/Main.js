@@ -73,16 +73,17 @@ export default function Main({className, children}) {
 
   useEffect(() => {
     if(!sceneRef.current) return;
-    const height = sceneRef?.current?.clientHeight;
+    // const height = sceneRef?.current?.clientHeight;
     const width = sceneRef?.current?.clientWidth;
-    const app = new PIXI.Application({ width: width, height: height, backgroundColor: `b7efff` })
+    console.log(width)
+    const app = new PIXI.Application({ width: width, height: width, backgroundColor: `b7efff` })
     sceneRef?.current?.appendChild(app.view);
     const grass = new Grass;
     const ball = new Ball;
     app.stage.addChild(grass);
     app.stage.addChild(ball);
-    ball.init({x: width / 2, y: height * 0.95})
-    grass.init({x: 0, y: height, width: width})
+    grass.init({x: 0, y: width, width: width, height: width * 0.135})
+    ball.init({x: width / 2, y: width - grass.getHeight() * 0.25, width: width * 0.2, height: width * 0.2});
     setBall(ball);
   }, [sceneRef.current])
 

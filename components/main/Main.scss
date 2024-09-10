@@ -39,7 +39,9 @@
 
   &__scene{
     width: 100%;
+    max-width: 95vw;
     height: 400px;
+    max-height: 95vw;
     margin: 0 auto 30px;
     background-color: gray;
 

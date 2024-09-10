@@ -22,16 +22,15 @@ export default class Ball extends PIXI.Container {
     this.position.y = this.posY;
   }
 
-  init({x, y}){
+  init({x, y, width, height}){
+    console.log(width, height)
     this.posY = y;
     this.posX = x;
-    this.position.x = this.posX;
-    this.position.y = this.posY;
+    this.position.x = x;
+    this.position.y = y;
+    this.sprite.width = width;
+    this.sprite.height = height;
   }
-
-  // getWidth(){
-  //   return this.sprite.width;
-  // }
 
   jump(onComplite) {  
     const timeline = gsap.timeline();  
